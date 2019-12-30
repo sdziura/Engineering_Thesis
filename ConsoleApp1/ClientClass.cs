@@ -4,13 +4,34 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+
 
 namespace Client
 {
+    
     class ClientClass
     {
         TcpClient tcpclnt;
-        string ipAdress = "192.168.1.2";
+        string ipAdress = "192.168.55.103";
+        int port = 8021;
+        
+        // Class used to pack all information that need to be send to Server 
+        class DataToSend
+        {
+            public Graph graph;
+            public Threats threats;
+            public DataToSend(Graph _graph, Threats _threats)
+            {
+                graph = _graph;
+                threats = _threats;
+            }
+            public DataToSend(Graph _graph)
+            {
+                graph = _graph;
+                threats = new Threats(graph);
+            }
+        }
 
         public ClientClass()
         {
@@ -19,7 +40,7 @@ namespace Client
                 tcpclnt = new TcpClient();
                 Console.WriteLine("Connecting.....");
 
-                tcpclnt.Connect(ipAdress, 8021);
+                tcpclnt.Connect(ipAdress, port);
                 // use the ipaddress as in the server program
 
                 Console.WriteLine("Connected");
@@ -31,23 +52,55 @@ namespace Client
             }
         }
 
-        public void sendGraph(Graph graf)
+        public void sendGraph(Graph graf, Threats threats)
         {
-            string jsonString;
-            jsonString = JsonConvert.SerializeObject(graf);
+            // Creating stream and encoder
             Stream stm = tcpclnt.GetStream();
-
             ASCIIEncoding asen = new ASCIIEncoding();
-            byte[] ba = asen.GetBytes(jsonString);
-            Console.WriteLine("Transmitting.....");
 
+            // Packing, serializing and encoding data to send
+            DataToSend toSend = new DataToSend(graf, threats);
+            string jsonString = JsonConvert.SerializeObject(toSend);
+            byte[] ba = asen.GetBytes(jsonString);
+
+            Console.WriteLine("Sending data about graph and threats to server ...");
+            Console.WriteLine(jsonString);
+            // Wrtining data to stream
             stm.Write(ba, 0, ba.Length);
 
-            byte[] bb = new byte[100];
+            // Receiving confirmation from server
+            byte[] bb = new byte[Constants.MAXSIZE];
             int k = stm.Read(bb, 0, 100);
-
             for (int i = 0; i < k; i++)
                 Console.Write(Convert.ToChar(bb[i]));
+        }
+        public void sendGraph(Graph graf)
+        {
+            sendGraph(graf, new Threats(graf));
+        }
+        public List<int> receivePath()
+        {
+            // Creating stream and encoder
+            Stream stm = tcpclnt.GetStream();
+            ASCIIEncoding asen = new ASCIIEncoding();
+
+            byte[] bb = new byte[Constants.MAXSIZE];
+            int k = stm.Read(bb, 0, 100);
+
+            // Decoding message to json string
+            var jsonReceived = new StringBuilder();
+            Console.WriteLine("Recieved path ...");
+            for (int i = 0; i < k; i++)
+            {
+                Console.Write(Convert.ToChar(bb[i]));
+                jsonReceived.Append(Convert.ToChar(bb[i]));
+            }
+            string strr = jsonReceived.ToString();
+
+            // From json to Object
+            List<int> receivedPath = JsonConvert.DeserializeObject<List<int>>(strr);
+
+            return receivedPath;
         }
 
         public void closeConnection()

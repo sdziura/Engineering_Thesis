@@ -8,10 +8,10 @@ namespace Server
 {
     public class Graph
     {
-        public int nrOfNodes { get; }
-        public int[,] graph { get; }
-        public int start { get; }
-        public int end { get; }
+        public int nrOfNodes { get; set; }
+        public int[,] graph { get; set; }
+        public int start { get; set; }
+        public int end { get; set; }
 
         public Graph(int _nrOfNodes, int[,] _graph, int _start, int _end)
         {
@@ -19,6 +19,12 @@ namespace Server
             graph = _graph;
             start = _start;
             end = _end;
+        }
+        public Graph(Graph _graph): this(_graph.nrOfNodes, _graph.graph, _graph.start, _graph.end)
+        {
+        }
+        public Graph()
+        {
         }
     }
 }

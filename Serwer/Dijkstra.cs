@@ -22,11 +22,11 @@ namespace Server
         public Dijkstra(Graph _graph)
         {
             graph = _graph;
-            onPath = new bool[graph.nrOfNodes];
-            shortestDist = new int[graph.nrOfNodes];
-            predecessor = new int[graph.nrOfNodes];
-            current = graph.start;
-            for (int i = 0; i < graph.nrOfNodes; ++i)
+            onPath = new bool[_graph.nrOfNodes];
+            shortestDist = new int[_graph.nrOfNodes];
+            predecessor = new int[_graph.nrOfNodes];
+            current = _graph.start;
+            for (int i = 0; i < _graph.nrOfNodes; ++i)
             {
                 onPath[i] = false;
                 shortestDist[i] = int.MaxValue;
@@ -40,15 +40,19 @@ namespace Server
         {
             int shortest = int.MaxValue;
             int pathCandidate = -1;
+
+            // Go to every Node that is not on path
             for (int j = 0; j < graph.nrOfNodes; ++j)
             {
                 if (!onPath[j])
                 {
+                    // Update shortest paths to Nodes, including path by current Node  
                     if (shortestDist[current] + graph.graph[current, j] < shortestDist[j])
                     {
                         shortestDist[j] = shortestDist[current] + graph.graph[current, j];
                         predecessor[j] = current;
                     }
+                    // Find a Node, not included in path, that is closest from start
                     if (shortestDist[j] < shortest)
                     {
                         shortest = shortestDist[j];
@@ -56,6 +60,8 @@ namespace Server
                     }
                 }
             }
+
+            // Change current Node and add it to Path
             current = pathCandidate;
             onPath[pathCandidate] = true;
             return pathCandidate;
@@ -67,6 +73,7 @@ namespace Server
                 findShortestWay();   
         }
 
+        // Return a list of  with shortest path
         public List<int> showWay()
         {
             int temp = graph.end;
