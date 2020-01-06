@@ -13,7 +13,7 @@ namespace Client
     class ClientClass
     {
         TcpClient tcpclnt;
-        string ipAdress = "192.168.55.103";
+        string ipAdress = "192.168.1.9";
         int port = 8021;
         
         // Class used to pack all information that need to be send to Server 
@@ -64,13 +64,12 @@ namespace Client
             byte[] ba = asen.GetBytes(jsonString);
 
             Console.WriteLine("Sending data about graph and threats to server ...");
-            Console.WriteLine(jsonString);
             // Wrtining data to stream
             stm.Write(ba, 0, ba.Length);
 
             // Receiving confirmation from server
             byte[] bb = new byte[Constants.MAXSIZE];
-            int k = stm.Read(bb, 0, 100);
+            int k = stm.Read(bb, 0, Constants.MAXSIZE);
             for (int i = 0; i < k; i++)
                 Console.Write(Convert.ToChar(bb[i]));
         }
@@ -85,7 +84,7 @@ namespace Client
             ASCIIEncoding asen = new ASCIIEncoding();
 
             byte[] bb = new byte[Constants.MAXSIZE];
-            int k = stm.Read(bb, 0, 100);
+            int k = stm.Read(bb, 0, Constants.MAXSIZE);
 
             // Decoding message to json string
             var jsonReceived = new StringBuilder();

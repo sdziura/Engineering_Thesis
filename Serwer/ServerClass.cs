@@ -26,7 +26,7 @@ namespace Server
     {   
         // use local m/c IP address, and 
         // use the same in the client
-        IPAddress ipAd = IPAddress.Parse("192.168.55.103");
+        IPAddress ipAd = IPAddress.Parse("192.168.1.9");
         TcpListener myList;
         Socket socket;
 
@@ -68,7 +68,6 @@ namespace Server
             Console.WriteLine("Recieved...");
             for (int i = 0; i < k; i++)
             {
-                Console.Write(Convert.ToChar(b[i]));
                 jsonReceived.Append(Convert.ToChar(b[i]));
             }
             string strr = jsonReceived.ToString();

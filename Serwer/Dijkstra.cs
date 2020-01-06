@@ -35,7 +35,13 @@ namespace Server
             onPath[graph.start] = true;   // Set starting node as visited
             shortestDist[graph.start] = 0;  // 0 weight to starting node
         }
-  
+
+        public Dijkstra(GraphWithThreats _graph): this(_graph.newGraph())
+        { }
+
+        public Dijkstra()
+        { }
+
         private int findShortestWay()
         {
             int shortest = int.MaxValue;
@@ -78,6 +84,11 @@ namespace Server
         {
             int temp = graph.end;
             List<int> way = new List<int>();
+            if(Math.Abs(shortest()) > Constants.MAXWEIGHT*graph.nrOfNodes*2)
+            {
+                way.Add(-1);
+                return way;
+            }
             way.Add(temp);
             while(temp != graph.start)
                  way.Add(temp = predecessor[temp]);
@@ -88,10 +99,17 @@ namespace Server
 
         public void sprawdz()
         {
-            for(int i = 0; i < graph.nrOfNodes; ++i)
+            Console.WriteLine("Start Point : " + graph.start + "\nEnd Point : " + graph.end);
+            Console.WriteLine( "\nNr\t" + "On Path\t" + "Shortest distance\t" + "Predecessor\n");
+            for (int i = 0; i < graph.nrOfNodes; ++i)
             {
-                Console.WriteLine(onPath[i] + "\t" + shortestDist[i] + "\t" + predecessor[i] + "\n");
+                Console.WriteLine(i + "\t" + onPath[i] + "\t" + shortestDist[i] + "\t\t" + predecessor[i] + "\n");
             }
+        }
+
+        public int shortest()
+        {
+            return shortestDist[graph.end];
         }
     }
 }

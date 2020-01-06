@@ -33,7 +33,15 @@ namespace Server
             }
         }
         public GraphWithThreats(DataToSend _data) : this(_data.graph, _data.threats)
+        { }
+
+        public GraphWithThreats()
+        { }
+
+        public Graph newGraph()
         {
+            Graph _newgraph = new Graph(nrOfNodes, graphWithThreats, start, end);
+            return _newgraph;
         }
 
     }
