@@ -13,7 +13,7 @@ namespace Client
     class ClientClass
     {
         TcpClient tcpclnt;
-        string ipAdress = "192.168.1.9";
+        string ipAdress = "192.168.55.103";
         int port = 8021;
         
         // Class used to pack all information that need to be send to Server 
@@ -66,12 +66,13 @@ namespace Client
             Console.WriteLine("Sending data about graph and threats to server ...");
             // Wrtining data to stream
             stm.Write(ba, 0, ba.Length);
-
+            /*
             // Receiving confirmation from server
             byte[] bb = new byte[Constants.MAXSIZE];
             int k = stm.Read(bb, 0, Constants.MAXSIZE);
             for (int i = 0; i < k; i++)
                 Console.Write(Convert.ToChar(bb[i]));
+            Console.WriteLine();*/
         }
         public void sendGraph(Graph graf)
         {
@@ -94,7 +95,8 @@ namespace Client
                 Console.Write(Convert.ToChar(bb[i]));
                 jsonReceived.Append(Convert.ToChar(bb[i]));
             }
-            string strr = jsonReceived.ToString();
+            Console.WriteLine();
+           string strr = jsonReceived.ToString();
 
             // From json to Object
             List<int> receivedPath = JsonConvert.DeserializeObject<List<int>>(strr);

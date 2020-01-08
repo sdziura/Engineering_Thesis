@@ -46,6 +46,18 @@ namespace Client
 
             return threats;
         }
+        public Threats addThreats(Graph graph, Threats threats, int nrOfThreats)
+        {
+            int tempRand = 0;
+            for (int i = 0; i < nrOfThreats; i++)
+            {
+                while (threats.positionsOfThreats[tempRand = rnd.Next(graph.nrOfNodes)]) ;
+                threats.positionsOfThreats[tempRand] = true;
+            }
+
+
+            return threats;
+        }
 
         public Threats changeThreats(Graph graph, Threats threats)
         {

@@ -83,6 +83,7 @@ namespace Server
         public List<int> showWay()
         {
             int temp = graph.end;
+            Console.WriteLine("Shortest : " + shortest());
             List<int> way = new List<int>();
             if(Math.Abs(shortest()) > Constants.MAXWEIGHT*graph.nrOfNodes*2)
             {

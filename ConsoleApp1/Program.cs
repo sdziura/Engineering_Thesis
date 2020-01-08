@@ -11,7 +11,7 @@ namespace Client
     public static class Constants
     {
         public const int MAXWEIGHT = 100;
-        public const int MAXSIZE = 10000;
+        public const int MAXSIZE = 500000000;
     }
     class Program
     {
@@ -44,7 +44,9 @@ namespace Client
         {
             Console.WriteLine("CLIENT\n\n");
 
-            startAsync();
+            Test test = new Test();
+            test.timeOfWorkWithThreats(300, 1, 100);
+
             Console.ReadKey();
         }
     }

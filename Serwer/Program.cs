@@ -10,7 +10,7 @@ namespace Server
     public static class Constants
     {
         public const int MAXWEIGHT = 100;
-        public const int MAXSIZE = 10000;
+        public const int MAXSIZE = 500000000;
     }
     class Program
     {
@@ -26,7 +26,7 @@ namespace Server
                 dijk = new Dijkstra(graph);
                 dijk.alghoStart();
                 serv.sendPath(dijk.showWay());
-                dijk.sprawdz();
+                //dijk.sprawdz();
             }
         }
 

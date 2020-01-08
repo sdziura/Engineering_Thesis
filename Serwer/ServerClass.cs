@@ -26,7 +26,7 @@ namespace Server
     {   
         // use local m/c IP address, and 
         // use the same in the client
-        IPAddress ipAd = IPAddress.Parse("192.168.1.9");
+        IPAddress ipAd = IPAddress.Parse("192.168.55.103");
         TcpListener myList;
         Socket socket;
 
@@ -74,21 +74,21 @@ namespace Server
             
             // From json to Object
             DataToSend receivedData = JsonConvert.DeserializeObject<DataToSend>(strr);
-
+            /*
             // Sending confirmation to client 
             ASCIIEncoding asen = new ASCIIEncoding();
             socket.Send(asen.GetBytes("The string was recieved by the server."));
-            Console.WriteLine("\nSent confirmation");
+            Console.WriteLine("\nSent confirmation");*/
             return receivedData;
         }
 
         public void sendPath(List<int> path)
         {
-            Console.WriteLine("\nSending shortest path to client ...");
+            Console.WriteLine("Sending shortest path to client ...");
             string jsonString = JsonConvert.SerializeObject(path);
             ASCIIEncoding asen = new ASCIIEncoding();
             socket.Send(asen.GetBytes(jsonString));
-            Console.WriteLine("\nPath sent to client");
+            Console.WriteLine("Path sent to client\n");
         }
         
         public void closeServer()
