@@ -21,7 +21,7 @@ namespace Client
                 {
                     if(rnd.Next(100) < 100*graphDensity)
                     {
-                        int weight = rnd.Next(maxWeight);
+                        int weight = rnd.Next(1,maxWeight);
                         graph[i, j] = weight;
                         graph[j, i] = weight;
 
@@ -33,8 +33,11 @@ namespace Client
                     }
                 }
             }
+            int start = rnd.Next(graphSize - 1);
+            int end;
+            while (start == (end = rnd.Next(graphSize - 1))) ;
 
-            Graph simGraph = new Graph(graphSize, graph, rnd.Next(graphSize), rnd.Next(graphSize));
+            Graph simGraph = new Graph(graphSize, graph, rnd.Next(graphSize-1), rnd.Next(graphSize-1));
 
             return simGraph;
         }
@@ -42,7 +45,10 @@ namespace Client
         public Threats simulateThreats(Graph graph)
         {
             Threats threats = new Threats(graph);
-            threats.positionsOfThreats[rnd.Next(graph.nrOfNodes)] = true;
+            int temp = rnd.Next(graph.nrOfNodes - 1);
+            while(temp==graph.start || temp==graph.end)
+                temp = rnd.Next(graph.nrOfNodes - 1);
+            threats.positionsOfThreats[rnd.Next(graph.nrOfNodes-1)] = true;
 
             return threats;
         }
@@ -66,10 +72,13 @@ namespace Client
             {
                 if(threats.positionsOfThreats[i])
                 {
-                    for(int j = i+1; j < graph.nrOfNodes; j++)
+                    for(int j = 0; j < graph.nrOfNodes; j++)
                     {
-                        if (rnd.Next(Constants.MAXWEIGHT) > graph.graph[i, j])
+                        if (rnd.Next(Constants.MAXWEIGHT * 3) > (graph.graph[i, j] + 2 * Constants.MAXWEIGHT) && graph.start!=j && graph.end != j)
+                        {
                             threats.positionsOfThreats[j] = true;
+                            return threats;
+                        }
                     }
                 }
             }

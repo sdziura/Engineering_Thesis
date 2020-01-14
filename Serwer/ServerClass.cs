@@ -74,11 +74,7 @@ namespace Server
             
             // From json to Object
             DataToSend receivedData = JsonConvert.DeserializeObject<DataToSend>(strr);
-            /*
-            // Sending confirmation to client 
-            ASCIIEncoding asen = new ASCIIEncoding();
-            socket.Send(asen.GetBytes("The string was recieved by the server."));
-            Console.WriteLine("\nSent confirmation");*/
+      
             return receivedData;
         }
 

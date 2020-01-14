@@ -26,5 +26,23 @@ namespace Server
         public Graph()
         {
         }
+
+        public void showGraph()
+        {
+            Console.WriteLine();
+            for(int i = 0; i<nrOfNodes; i++)
+                Console.Write("\t"+i);
+            for (int i = 0; i < nrOfNodes; i++)
+            {
+                Console.Write("\n"+i);
+                for (int j = 0; j < nrOfNodes; j++)
+                {
+                    if(Math.Abs(graph[i,j]+10)<nrOfNodes*Constants.MAXWEIGHT)
+                        Console.Write("\t" + graph[i,j]);
+                    else
+                        Console.Write("\tTHREAT");
+                }
+            }    
+        }
     }
 }

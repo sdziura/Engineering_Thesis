@@ -15,18 +15,28 @@ namespace Client
     }
     class Program
     {
-        static async Task startAsync()
+        static void startAsync(int graphSize)
         {
             Simulator sim = new Simulator();
-            Graph graf = sim.simulateGraph(20, 1);
+            Graph graf = sim.simulateGraph(graphSize, 1);
             Threats threat = sim.simulateThreats(graf);
             ClientClass clnt = new ClientClass();
 
+            clnt.sendGraph(graf);
+            var path = clnt.receivePath();
+            Console.WriteLine("PATH :");
+            foreach (int i in path)
+            {
+                Console.Write("{0}\t", i.ToString());
+            }
             Console.WriteLine("Trying to send");
             while (true)
             {
+               // await Task.Delay(1000);
                 clnt.sendGraph(graf, threat);
-                var path = clnt.receivePath();
+                Console.WriteLine("dbg : sent");
+                Console.ReadKey();
+                path = clnt.receivePath();
                 Console.WriteLine("PATH :");
                 foreach (int i in path)
                 {
@@ -35,7 +45,8 @@ namespace Client
                 Console.WriteLine();
                 threat = sim.changeThreats(graf, threat);
                 Console.WriteLine("Waiting ... ");
-                await Task.Delay(5000);
+                Console.ReadKey();
+                //await Task.Delay(5000);
             }
 
 
@@ -44,9 +55,9 @@ namespace Client
         {
             Console.WriteLine("CLIENT\n\n");
 
-            Test test = new Test();
-            test.timeOfWorkWithThreats(300, 1, 100);
-
+            //Test test = new Test();
+            startAsync(10);
+            //test.timeOfWorkWithThreats(20, 1, 1);
             Console.ReadKey();
         }
     }

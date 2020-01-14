@@ -13,20 +13,32 @@ namespace Server
         public GraphWithThreats(Graph _graph, Threats _threats): base(_graph)
         {
             threats = _threats;
-            graphWithThreats = graph;
+
+            graphWithThreats = new int[nrOfNodes,nrOfNodes];
+            for(int i=0; i<nrOfNodes; i++)
+            {
+                for (int j = i; j < nrOfNodes; j++)
+                {
+                    graphWithThreats[i, j] = graph[i, j];
+                    graphWithThreats[j, i] = graph[i, j];
+                }
+            }
             for(int i = 0; i < nrOfNodes; i++)
             {
                 if(threats.positionsOfThreats[i])
                 {
                     for (int j = 0; j < nrOfNodes; j++)
                     {
-                        for(int k = 0; k < nrOfNodes; k++)
+                        for(int k = j; k < nrOfNodes; k++)
                         {
-                            graphWithThreats[k, j] += Constants.MAXWEIGHT / (1 + graph[i, j]);
-                            graphWithThreats[j, k] += Constants.MAXWEIGHT / (1 + graph[i, j]);
+                            if (graphWithThreats[k, j] != 0)
+                            {
+                                graphWithThreats[k, j] += Constants.MAXWEIGHT / (1 + graph[i, j]);
+                                graphWithThreats[j, k] += Constants.MAXWEIGHT / (1 + graph[i, j]);
+                            }
                         }
-                        graphWithThreats[i, j] = int.MaxValue;
-                        graphWithThreats[j, i] = int.MaxValue;
+                        graphWithThreats[i, j] = 0;
+                        graphWithThreats[j, i] = 0;
 
                     }
                 }

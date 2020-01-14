@@ -21,12 +21,13 @@ namespace Server
             Dijkstra dijk = new Dijkstra();
             while (true)
             {
-                Console.WriteLine("Waiting for data ...");
+                Console.WriteLine("\nWaiting for data ...");
                 graph = new GraphWithThreats(serv.listen());
                 dijk = new Dijkstra(graph);
-                dijk.alghoStart();
+                dijk.alghorithmStart();
+                Console.WriteLine();
                 serv.sendPath(dijk.showWay());
-                //dijk.sprawdz();
+                graph.newGraph().showGraph();
             }
         }
 

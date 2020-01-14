@@ -64,15 +64,8 @@ namespace Client
             byte[] ba = asen.GetBytes(jsonString);
 
             Console.WriteLine("Sending data about graph and threats to server ...");
-            // Wrtining data to stream
+            // Writing data to stream
             stm.Write(ba, 0, ba.Length);
-            /*
-            // Receiving confirmation from server
-            byte[] bb = new byte[Constants.MAXSIZE];
-            int k = stm.Read(bb, 0, Constants.MAXSIZE);
-            for (int i = 0; i < k; i++)
-                Console.Write(Convert.ToChar(bb[i]));
-            Console.WriteLine();*/
         }
         public void sendGraph(Graph graf)
         {

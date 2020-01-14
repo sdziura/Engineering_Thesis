@@ -50,7 +50,7 @@ namespace Server
             // Go to every Node that is not on path
             for (int j = 0; j < graph.nrOfNodes; ++j)
             {
-                if (!onPath[j])
+                if (!onPath[j] && graph.graph[current,j]!=0)
                 {
                     // Update shortest paths to Nodes, including path by current Node  
                     if (shortestDist[current] + graph.graph[current, j] < shortestDist[j])
@@ -73,7 +73,7 @@ namespace Server
             return pathCandidate;
         }
 
-        public void alghoStart()
+        public void alghorithmStart()
         {
             while(current!=graph.end)
                 findShortestWay();   
