@@ -3,15 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+using Server;
+using serverlib;
 
-namespace Server
+namespace ServerEX
 {
-    public static class Constants
-    {
-        public const int MAXWEIGHT = 100;
-        public const int MAXSIZE = 500000000;
-    }
     class Program
     {
         static void start()
@@ -30,7 +26,6 @@ namespace Server
                 graph.newGraph().showGraph();
             }
         }
-
 
         static void Main(string[] args)
         {

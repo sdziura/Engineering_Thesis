@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Server
 {
 
-    class Dijkstra
+    public class Dijkstra
     {
         Graph graph { get; set; }
         // Table informing if a node is already included in path

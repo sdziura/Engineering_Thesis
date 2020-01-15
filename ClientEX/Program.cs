@@ -3,16 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+using Client;
+using clientlib;
 
-
-namespace Client
+namespace ClientEX
 {
-    public static class Constants
-    {
-        public const int MAXWEIGHT = 100;
-        public const int MAXSIZE = 500000000;
-    }
     class Program
     {
         static void startAsync(int graphSize)
@@ -32,7 +27,7 @@ namespace Client
             Console.WriteLine("Trying to send");
             while (true)
             {
-               // await Task.Delay(1000);
+                // await Task.Delay(1000);
                 clnt.sendGraph(graf, threat);
                 Console.WriteLine("dbg : sent");
                 Console.ReadKey();

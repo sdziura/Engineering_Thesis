@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Text;
-using System.IO;
-using System.Net;
-using System.Net.Sockets;
-using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Client;
+using clientlib;
 
-
-namespace Client
+namespace Interfaces
 {
     public static class Constants
     {
