@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="serverlib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\serverlib\obj\Debug\serverlib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,10 +54,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\serverlib\serverlib.csproj">
-      <Project>{bc43edec-65dc-425d-af69-1f62ec668185}</Project>
-      <Name>serverlib</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Serwer\Server.csproj">
       <Project>{afc89c95-f00a-483a-88ce-d0dd209b2e22}</Project>
       <Name>Server</Name>

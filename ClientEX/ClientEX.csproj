@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="clientlib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\clientlib\obj\Debug\clientlib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -51,10 +55,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\clientlib\clientlib.csproj">
-      <Project>{d2ee19b5-e70c-4954-b673-e861dca1148d}</Project>
-      <Name>clientlib</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ConsoleApp1\Client.csproj">
       <Project>{532c1045-8a0d-424d-8ded-0822b666baf0}</Project>
       <Name>Client</Name>

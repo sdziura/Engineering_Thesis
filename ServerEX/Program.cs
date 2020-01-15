@@ -10,6 +10,7 @@ namespace ServerEX
 {
     class Program
     {
+        // Function used for dynamic tests
         static void start()
         {
             ServerClass serv = new ServerClass();
